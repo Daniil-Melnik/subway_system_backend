@@ -25,11 +25,18 @@ public class DataBase {
     private static Statement stmt;
 
     public static void main(String args[]) {
-        List<Line> list = getLines();
+        // List<Line> list = getLines();
+
+        // for (int i = 0 ; i < list.size(); i++) {
+        //     Line line = list.get(i);
+        //     System.out.println(line.getId() + " " + line.getName() + " " + line.getNumOfSt() + " " + line.getColor());
+        // }
+
+        List<Photo> list = getPhotos();
 
         for (int i = 0 ; i < list.size(); i++) {
-            Line line = list.get(i);
-            System.out.println(line.getId() + " " + line.getName() + " " + line.getNumOfSt() + " " + line.getColor());
+            Photo photo = list.get(i);
+            System.out.println(photo.getId() + " " + photo.getSrc() + " " + photo.getSection_num() + " " + photo.getStation_id());
         }
     }
 
@@ -61,11 +68,31 @@ public class DataBase {
         catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         }finally {
-            //close connection ,stmt and resultset here
             CloseDBConnection();
             try { stmt.close(); } catch(SQLException se) { /*can't do anything */ } 
-            //try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
         }
         return ar_line;
+    }
+
+    public static List<Photo> getPhotos() {
+        GetDBConnection();
+        String query = "select * from photo";
+       List<Photo> ar_photo = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Photo photo = new Photo();
+                photo.setPhoto(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("station_id")), Integer.parseInt(rs.getString("section_num")), rs.getString("src"), rs.getString("caption"));
+                ar_photo.add(photo);
+            }
+        }
+        catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }finally {
+            CloseDBConnection();
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ } 
+        }
+        return ar_photo;
     }
 }
