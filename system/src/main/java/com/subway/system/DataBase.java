@@ -26,7 +26,15 @@ public class DataBase {
     private static Statement stmt;
 
     public static void main(String args[]) {
-        
+        // List<Para> list = getParaByStID(2);
+
+        // for (int i = 0; i < list.size(); i++) {
+        //     Para para = list.get(i);
+        //     System.out.println(para.getId() + " " + para.getText());
+        // }
+
+        Para para = getParaByID(1);
+        System.out.println(para.getId() + " " + para.getText());
     }
 
     private static void GetDBConnection() {
@@ -62,6 +70,10 @@ public class DataBase {
         }
         return ar_line;
     }
+
+/////////////////////////////////
+// getting infopmation from Photo
+/////////////////////////////////
 
     public static List<Photo> getPhotos() {
         GetDBConnection();
@@ -127,4 +139,74 @@ public class DataBase {
         }
         return photo;
     }
+
+/////////////////////////////////
+// getting infopmation from Para
+/////////////////////////////////
+
+    public static List<Para> getParas() {
+        GetDBConnection();
+        String query = "select * from para";
+       List<Para> ar_para = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Para para = new Para();
+                para.setPara(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("station_id")), Integer.parseInt(rs.getString("section_num")), rs.getString("text"));
+                ar_para.add(para);
+            }
+        }
+        catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }finally {
+            CloseDBConnection();
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ } 
+        }
+        return ar_para;
+    }
+
+    public static List<Para> getParaByStID(int id) {
+        GetDBConnection();
+        List<Para> list = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM para WHERE station_id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Para para = new Para();
+                para.setPara(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("station_id")), Integer.parseInt(rs.getString("section_num")), rs.getString("text"));
+                list.add(para);
+            }
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return list;
+    }
+
+    public static Para getParaByID(int id) {
+        GetDBConnection();
+        Para para = new Para();
+        try {
+            String query = "SELECT * FROM para WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            para.setPara(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("station_id")), Integer.parseInt(rs.getString("section_num")), rs.getString("text"));
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return para;
+    }
+
 }
