@@ -1,3 +1,66 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+        {
+        "name": "variable",
+        "scope": ["entity.name.tag"],
+        "settings": {
+        "foreground": "#20c498"
+        }
+        },
+        
+        {
+        "name": "variable",
+        "scope": ["entity.name.tag.template", "variable.parameter"],
+        "settings": {
+        "foreground": "#F07178"
+        }
+        },
+        
+        {
+        "name": "variable",
+        "scope": [
+        "variable.other.readwrite",
+        "text.html.derivative",
+        "variable.other.property",
+        "variable.other.object",
+        "support.variable.property"
+        ],
+        "settings": {
+        "foreground": "#c39a53"
+        }
+        },
+        
+        {
+        "name": "variable",
+        "scope": [
+        "storage.type.function.arrow",
+        "source.ts.embedded",
+        "meta.arrow"
+        ],
+        "settings": {
+        "foreground": "#C792EA"
+        }
+        },
+        
+        {
+        "name": "variable",
+        "scope": [
+        "entity.other.attribute-name",
+        "keyword.control.import",
+        "keyword.control.from",
+        "keyword.control.conditional",
+        "punctuation.attribute-shorthand.event",
+        "entity.name.function",
+        "entity.name.function",
+        "keyword.control.loop",
+        "invalid.illegal.character-not-allowed-here"
+        ],
+        "settings": {
+        "foreground": "#89b2ff"
+        }
+        }
+        ]
+        },
 }
