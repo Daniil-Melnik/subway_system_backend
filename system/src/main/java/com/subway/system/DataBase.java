@@ -2,6 +2,7 @@ package com.subway.system;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,19 +26,7 @@ public class DataBase {
     private static Statement stmt;
 
     public static void main(String args[]) {
-        // List<Line> list = getLines();
-
-        // for (int i = 0 ; i < list.size(); i++) {
-        //     Line line = list.get(i);
-        //     System.out.println(line.getId() + " " + line.getName() + " " + line.getNumOfSt() + " " + line.getColor());
-        // }
-
-        List<Photo> list = getPhotos();
-
-        for (int i = 0 ; i < list.size(); i++) {
-            Photo photo = list.get(i);
-            System.out.println(photo.getId() + " " + photo.getSrc() + " " + photo.getSection_num() + " " + photo.getStation_id());
-        }
+        
     }
 
     private static void GetDBConnection() {
@@ -94,5 +83,48 @@ public class DataBase {
             try { stmt.close(); } catch(SQLException se) { /*can't do anything */ } 
         }
         return ar_photo;
+    }
+
+    public static List<Photo> getPhotoByStID(int id) {
+        GetDBConnection();
+        List<Photo> list = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM photo WHERE station_id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Photo photo = new Photo();
+                photo.setPhoto(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("station_id")), Integer.parseInt(rs.getString("section_num")), rs.getString("src"), rs.getString("caption"));
+                list.add(photo);
+            }
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return list;
+    }
+
+    public static Photo getPhotoByID(int id) {
+        GetDBConnection();
+        Photo photo = new Photo();
+        try {
+            String query = "SELECT * FROM photo WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            photo.setPhoto(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("station_id")), Integer.parseInt(rs.getString("section_num")), rs.getString("src"), rs.getString("caption"));
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return photo;
     }
 }
