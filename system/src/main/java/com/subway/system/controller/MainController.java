@@ -15,5 +15,5 @@ public class MainController {
     @GetMapping("/getPhotos")
     public List<Photo> list(){
         return DataBase.getPhotoByStID(1);
-    }
+    } 
 }
