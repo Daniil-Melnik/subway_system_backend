@@ -21,13 +21,6 @@ public class DataBase {
     private static Statement stmt;
 
     public static void main(String args[]) {
-        // List<Station> list = getStByLineID(2);
-
-        // for (int i = 0; i < list.size(); i++) {
-        //     Station st = list.get(i);
-        //     System.out.println(st.getId() + " " + st.getName() + " " + st.getLine_id());
-        // }
-
         Station st = getStByID(1);
         System.out.println(st.getId() + " " + st.getName() + " " + st.getLine_id());
     }
