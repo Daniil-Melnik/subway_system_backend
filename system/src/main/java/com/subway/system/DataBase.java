@@ -21,8 +21,10 @@ public class DataBase {
     private static Statement stmt;
 
     public static void main(String args[]) {
-        Station st = getStByID(1);
-        System.out.println(st.getId() + " " + st.getName() + " " + st.getLine_id());
+        List<Para> list = getParaByStID(1);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getText());
+        }
     }
 
     private static void GetDBConnection() {
