@@ -1,4 +1,4 @@
-package com.subway.system;
+package com.subway.system.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Para {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int section_num;
     private int station_id;
@@ -46,12 +46,4 @@ public class Para {
     public void setText(String text) {
         this.text = text;
     }
-
-    public void setPara (int id, int station_id, int section_num, String text){
-        setId(id);
-        setSection_num(section_num);
-        setStation_id(station_id);
-        setText(text);
-    }
-
 }
