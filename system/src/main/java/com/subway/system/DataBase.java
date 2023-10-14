@@ -9,11 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Simple Java program to connect to MySQL database running on localhost and
- * running SELECT and INSERT query to retrieve and add data.
- * @author Javin Paul
- */
 public class DataBase {
 
     // JDBC URL, username and password of MySQL server
@@ -26,15 +21,15 @@ public class DataBase {
     private static Statement stmt;
 
     public static void main(String args[]) {
-        // List<Para> list = getParaByStID(2);
+        // List<Station> list = getStByLineID(2);
 
         // for (int i = 0; i < list.size(); i++) {
-        //     Para para = list.get(i);
-        //     System.out.println(para.getId() + " " + para.getText());
+        //     Station st = list.get(i);
+        //     System.out.println(st.getId() + " " + st.getName() + " " + st.getLine_id());
         // }
 
-        Para para = getParaByID(1);
-        System.out.println(para.getId() + " " + para.getText());
+        Station st = getStByID(1);
+        System.out.println(st.getId() + " " + st.getName() + " " + st.getLine_id());
     }
 
     private static void GetDBConnection() {
@@ -49,6 +44,9 @@ public class DataBase {
         try { con.close(); } catch(SQLException se) { /*can't do anything */ }
     }
 
+///////////////////////////////////
+// getting infopmation from s_lines
+///////////////////////////////////
     public static List<Line> getLines() {
         GetDBConnection();
         String query = "select * from s_lines";
@@ -69,6 +67,26 @@ public class DataBase {
             try { stmt.close(); } catch(SQLException se) { /*can't do anything */ } 
         }
         return ar_line;
+    }
+
+    public static Line getLineByID(int id) {
+        GetDBConnection();
+        Line line = new Line();
+        try {
+            String query = "SELECT * FROM s_lines WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            line.setLine(Integer.parseInt(rs.getString("id")), Integer.parseInt(rs.getString("num_of_st")), rs.getString("name"), rs.getString("color"), rs.getString("abbr"));
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return line;
     }
 
 /////////////////////////////////
@@ -207,6 +225,75 @@ public class DataBase {
             CloseDBConnection();
         }
         return para;
+    }
+
+////////////////////////////////////
+// getting infopmation from stations
+////////////////////////////////////
+
+    public static List<Station> getStations() {
+        GetDBConnection();
+        String query = "select * from stations";
+       List<Station> ar_station = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Station station = new Station();
+                station.setStation(Integer.parseInt(rs.getString("id")), rs.getString("name"), Integer.parseInt(rs.getString("line_id")), Integer.parseInt(rs.getString("num_of_sec")));
+                ar_station.add(station);
+            }
+        }
+        catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }finally {
+            CloseDBConnection();
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ } 
+        }
+        return ar_station;
+    }
+
+    public static List<Station> getStByLineID(int id) {
+        GetDBConnection();
+        List<Station> list = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM stations WHERE line_id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Station st = new Station();
+                st.setStation(Integer.parseInt(rs.getString("id")), rs.getString("name"), Integer.parseInt(rs.getString("line_id")), Integer.parseInt(rs.getString("num_of_sec")));
+                list.add(st);
+            }
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return list;
+    }
+
+    public static Station getStByID(int id) {
+        GetDBConnection();
+        Station st = new Station();
+        try {
+            String query = "SELECT * FROM stations WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            st.setStation(Integer.parseInt(rs.getString("id")), rs.getString("name"), Integer.parseInt(rs.getString("line_id")), Integer.parseInt(rs.getString("num_of_sec")));
+        }
+        catch (SQLException sqlEx) {
+            //sqlEx.printStackTrace();
+            return null;
+        }finally {
+            CloseDBConnection();
+        }
+        return st;
     }
 
 }
