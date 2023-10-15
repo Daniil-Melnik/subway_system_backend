@@ -12,7 +12,9 @@ import com.subway.system.service.LineService;
 import com.subway.system.service.ParaService;
 import com.subway.system.service.PhotoService;
 import com.subway.system.service.StationService;
+import com.subway.system.util_classes.Article_Section;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,4 +62,40 @@ public class MainController {
     public List<Line> listLine(){
         return lineService.getAllLines();
     }
+
+    @GetMapping("/getArticle/{id}")
+    public List<Article_Section> listSection(@PathVariable(value = "id") int station_id){
+        List<Article_Section> list = new ArrayList<>();
+
+        List<Para> allParaList = paraService.getAllParas();
+        List<Photo> allPhotoList = photoService.getAllPhotos();
+
+        List<Para> paraList = new ArrayList<>();
+        List<Photo> photoList = new ArrayList<>();
+
+        for (int i = 0; i < allParaList.size(); i++) {
+            Para para = allParaList.get(i);
+            if (para.getStation_id() == station_id) {
+                paraList.add(para);
+            }
+        }
+
+        for (int i = 0; i < allPhotoList.size(); i++) {
+            Photo photo = allPhotoList.get(i);
+            if (photo.getStation_id() == station_id) {
+                photoList.add(photo);
+            }
+        }
+
+        for (int i = 0; i < paraList.size(); i++){
+
+            Para para = paraList.get(i);
+            Photo photo = photoList.get(i);
+
+            list.add(new Article_Section(para.getText(), photo.getSrc(), photo.getCaption(), para.getSection_num()));
+        }
+
+        return list;
+    }
 }
+
