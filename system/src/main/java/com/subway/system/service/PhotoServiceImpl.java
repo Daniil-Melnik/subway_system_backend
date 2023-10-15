@@ -1,12 +1,9 @@
 package com.subway.system.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.subway.system.model.Para;
 import com.subway.system.model.Photo;
-import com.subway.system.repository.ParaRepository;
 import com.subway.system.repository.PhotoRepository;
 
 import java.util.List;
