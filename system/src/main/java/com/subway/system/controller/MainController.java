@@ -4,14 +4,15 @@ package com.subway.system.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.subway.system.model.Line;
 import com.subway.system.model.Para;
 import com.subway.system.model.Photo;
 import com.subway.system.model.Station;
+import com.subway.system.service.LineService;
 import com.subway.system.service.ParaService;
 import com.subway.system.service.PhotoService;
 import com.subway.system.service.StationService;
 
-import java.security.Provider.Service;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,9 @@ public class MainController {
 
     @Autowired
     private StationService stationService;
+
+    @Autowired
+    private LineService lineService;
 
     @PostMapping("/add")
     public String add(@RequestBody Para para){
@@ -50,5 +54,10 @@ public class MainController {
     @GetMapping("/getStations")
     public List<Station> listStation(){
         return stationService.getAllStations();
+    }
+
+    @GetMapping("/getLines")
+    public List<Line> listLine(){
+        return lineService.getAllLines();
     }
 }
