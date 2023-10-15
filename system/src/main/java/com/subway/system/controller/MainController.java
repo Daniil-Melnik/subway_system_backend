@@ -97,5 +97,18 @@ public class MainController {
 
         return list;
     }
+
+    @GetMapping("/getStation/{id}")
+    public Station StationList(@PathVariable(value = "id") int station_id){
+        List<Station> stList = stationService.getAllStations();
+        Station f_st = new Station();
+        for (int i = 0; i < stList.size(); i++){
+            Station st = stList.get(i);
+            if (st.getId() == station_id){
+                f_st = st;
+            }
+        }
+        return f_st;
+    }
 }
 
