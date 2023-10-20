@@ -15,6 +15,7 @@ public class Photo {
     private int station_id;
     private String src;
     private String caption;
+    private String caption_en;
 
     public int getId() {
         return id;
@@ -52,8 +53,16 @@ public class Photo {
         return caption;
     }
 
+    public String getCaptionEn() {
+        return caption_en;
+    }
+
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    public void setCaptionEn(String caption) {
+        this.caption_en = caption;
     }
 
     public void setPhoto (int id, int station_id, int section_num, String src, String caption){

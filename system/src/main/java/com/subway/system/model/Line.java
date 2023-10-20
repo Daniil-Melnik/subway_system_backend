@@ -14,6 +14,7 @@ public class Line {
     private int id;
 
     private String name;
+    private String name_en;
     private int num_of_st;
     private String color;
     private String abbr;
@@ -28,6 +29,10 @@ public class Line {
 
     public String getName() {
         return name;
+    }
+
+    public String getNameEn() {
+        return name_en;
     }
 
     public String getColor() {
@@ -56,6 +61,10 @@ public class Line {
 
     public void setAbbr(String s) {
         this.abbr = s;
+    }
+
+    public void setNameEn(String s) {
+        this.name_en = s;
     }
 
     public void setLine(int id, int num_of_st, String name, String color, String abbr) {

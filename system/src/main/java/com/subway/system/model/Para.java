@@ -13,6 +13,7 @@ public class Para {
     private int section_num;
     private int station_id;
     private String text;
+    private String text_en;
 
     
     public int getId() {
@@ -43,7 +44,14 @@ public class Para {
         return text;
     }
 
+    public String getTextEn() {
+        return text_en;
+    }
+
     public void setText(String text) {
         this.text = text;
+    }
+    public void setTextEn(String text) {
+        this.text_en = text;
     }
 }

@@ -14,6 +14,7 @@ public class Station {
     private int id;
 
     private String name;
+    private String name_en;
     private int line_id;
     private int num_of_sec;
 
@@ -33,6 +34,10 @@ public class Station {
         return name;
     }
 
+    public String getNameEn() {
+        return name_en;
+    }
+
     public void setId (int n) {
         this.id = n;
     }
@@ -47,6 +52,10 @@ public class Station {
 
     public void setName (String s) {
         this.name = s;
+    }
+
+    public void setNameEn (String s) {
+        this.name_en = s;
     }
 
     public void setStation (int id, String name, int num_of_sec, int line_id) {
