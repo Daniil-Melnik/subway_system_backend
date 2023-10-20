@@ -13,6 +13,7 @@ import com.subway.system.service.ParaService;
 import com.subway.system.service.PhotoService;
 import com.subway.system.service.StationService;
 import com.subway.system.util_classes.Article_Section;
+import com.subway.system.util_classes.Localed_Station;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,20 @@ public class MainController {
         return photoService.getAllPhotos();
     }
 
-    @GetMapping("/getStations")
-    public List<Station> listStation(){
-        return stationService.getAllStations();
+    @GetMapping("/getStations/{locale}")
+    public List<Localed_Station> listStation(@PathVariable(value = "locale") String local){
+        List<Localed_Station> res = new ArrayList<>();
+        List<Station> stations = stationService.getAllStations();
+
+        for (int i = 0; i < stations.size(); i++) {
+            Station st = stations.get(i);
+            Localed_Station l_st = new Localed_Station(st.getId(), st.getName(), st.getNum_of_sec(), st.getLine_id());
+            if (local.equals("en")){
+                l_st.setName(st.getNameEn());
+            }
+            res.add(l_st);
+        }
+        return res;
     }
 
     @GetMapping("/getLines")
