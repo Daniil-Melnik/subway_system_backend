@@ -63,8 +63,8 @@ public class MainController {
         return lineService.getAllLines();
     }
 
-    @GetMapping("/getArticle/{id}")
-    public List<Article_Section> listSection(@PathVariable(value = "id") int station_id){
+    @GetMapping("/getArticle/{id}/{locale}")
+    public List<Article_Section> listSection(@PathVariable(value = "id") int station_id, @PathVariable(value = "locale") String local){
         List<Article_Section> list = new ArrayList<>();
 
         List<Para> allParaList = paraService.getAllParas();
@@ -91,8 +91,14 @@ public class MainController {
 
             Para para = paraList.get(i);
             Photo photo = photoList.get(i);
-
-            list.add(new Article_Section(para.getText(), photo.getSrc(), photo.getCaption(), para.getSection_num()));
+            
+            if (local.equals("en")){
+                list.add(new Article_Section(para.getTextEn(), photo.getSrc(), photo.getCaptionEn(), para.getSection_num()));
+            }
+            if (local.equals("ru")){
+                list.add(new Article_Section(para.getText(), photo.getSrc(), photo.getCaption(), para.getSection_num()));
+            }
+            
         }
 
         return list;
