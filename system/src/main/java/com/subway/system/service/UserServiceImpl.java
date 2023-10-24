@@ -3,9 +3,7 @@ package com.subway.system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.subway.system.model.Station;
 import com.subway.system.model.User;
-import com.subway.system.repository.StationRepository;
 import com.subway.system.repository.UserRepository;
 
 import java.util.List;

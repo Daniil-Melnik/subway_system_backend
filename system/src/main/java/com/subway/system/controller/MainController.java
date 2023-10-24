@@ -8,10 +8,12 @@ import com.subway.system.model.Line;
 import com.subway.system.model.Para;
 import com.subway.system.model.Photo;
 import com.subway.system.model.Station;
+import com.subway.system.model.User;
 import com.subway.system.service.LineService;
 import com.subway.system.service.ParaService;
 import com.subway.system.service.PhotoService;
 import com.subway.system.service.StationService;
+import com.subway.system.service.UserService;
 import com.subway.system.util_classes.Article_Section;
 import com.subway.system.util_classes.Localed_Station;
 
@@ -34,10 +36,13 @@ public class MainController {
     @Autowired
     private LineService lineService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/add")
-    public String add(@RequestBody Para para){
-        paraService.savePara(para);
-        return "New student is added";
+    public String add(@RequestBody User user){
+        userService.saveUser(user);
+        return "New user is added";
     }
 
     @GetMapping("/getParas")
