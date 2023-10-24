@@ -16,8 +16,14 @@ public class User {
     private String email;
     private String psw;
 
+    private int isLogged;
+
     public int getId() {
         return id;
+    }
+
+    public int getIL() {
+        return isLogged;
     }
 
     public String getEmail() {
@@ -36,9 +42,19 @@ public class User {
         this.id = n;
     }
 
+     public void setIL (int n) { 
+        this.isLogged = n;
+    }
+
     public void setPsw (String s) {
         this.psw = s;
     }
 
-
+    public User(String email, String psw, int id, int il) {
+        this.id = id;
+        this.email = email;
+        this.psw = psw;
+        this.isLogged = il;
+    }
+    public User() {}
 }
