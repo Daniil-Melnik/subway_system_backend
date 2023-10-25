@@ -136,7 +136,6 @@ public class MainController {
 
     @GetMapping("/getUser/{email}/{psw}")
     public User UserAuth(@PathVariable(value = "email") String email, @PathVariable(value = "psw") String psw){
-        System.out.println("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ");
         List<User> usList = userService.getAllUsers();
         User f_us = new User("no_email", "000", 0, 0);
         for (int i = 0; i < usList.size(); i++){
