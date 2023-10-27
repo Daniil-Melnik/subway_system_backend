@@ -23,4 +23,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public boolean activateUser(String s) {
+        return true;
+    }
 }
