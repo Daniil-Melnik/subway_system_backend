@@ -1,6 +1,7 @@
 package com.subway.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Service;
 
 import com.subway.system.model.Photo;
@@ -22,5 +23,10 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public List<Photo> getAllPhotos() {
         return photoRepository.findAll();
+    }
+
+    @Override
+    public List<Photo> getPhotosByStID(int id) {
+        return photoRepository.findBystNum(id);
     }
 }

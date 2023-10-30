@@ -89,25 +89,8 @@ public class MainController {
     public List<Article_Section> listSection(@PathVariable(value = "id") int station_id, @PathVariable(value = "locale") String local){
         List<Article_Section> list = new ArrayList<>();
 
-        List<Para> allParaList = paraService.getAllParas();
-        List<Photo> allPhotoList = photoService.getAllPhotos();
-
-        List<Para> paraList = new ArrayList<>();
-        List<Photo> photoList = new ArrayList<>();
-
-        for (int i = 0; i < allParaList.size(); i++) {
-            Para para = allParaList.get(i);
-            if (para.getStation_id() == station_id) {
-                paraList.add(para);
-            }
-        }
-
-        for (int i = 0; i < allPhotoList.size(); i++) {
-            Photo photo = allPhotoList.get(i);
-            if (photo.getStation_id() == station_id) {
-                photoList.add(photo);
-            }
-        }
+        List<Para> paraList = paraService.getParasByStID(station_id);
+        List<Photo> photoList = photoService.getPhotosByStID(station_id);
 
         for (int i = 0; i < paraList.size(); i++){
 

@@ -12,7 +12,7 @@ public class Photo {
     private int id;
     
     private int section_num;
-    private int station_id;
+    private int stNum;
     private String src;
     private String caption;
     private String caption_en;
@@ -34,11 +34,11 @@ public class Photo {
     }
 
     public int getStation_id() {
-        return station_id;
+        return stNum;
     }
 
     public void setStation_id(int station_id) {
-        this.station_id = station_id;
+        this.stNum = station_id;
     }
 
     public String getSrc() {
