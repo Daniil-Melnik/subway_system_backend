@@ -20,6 +20,7 @@ import com.subway.system.util_classes.Localed_Station;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -110,16 +111,8 @@ public class MainController {
     }
 
     @GetMapping("/getStation/{id}")
-    public Station StationList(@PathVariable(value = "id") int station_id){
-        List<Station> stList = stationService.getAllStations();
-        Station f_st = new Station();
-        for (int i = 0; i < stList.size(); i++){
-            Station st = stList.get(i);
-            if (st.getId() == station_id){
-                f_st = st;
-            }
-        }
-        return f_st;
+    public Optional<Station> StationList(@PathVariable(value = "id") int station_id){
+        return stationService.getStationByID(station_id);
     }
 
     @GetMapping("/getUser/{email}/{psw}")
