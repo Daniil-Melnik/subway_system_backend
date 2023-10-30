@@ -9,6 +9,7 @@ import com.subway.system.model.Para;
 import com.subway.system.model.Photo;
 import com.subway.system.model.Station;
 import com.subway.system.model.User;
+import com.subway.system.repository.ParaRepository;
 import com.subway.system.service.LineService;
 import com.subway.system.service.ParaService;
 import com.subway.system.service.PhotoService;
@@ -39,6 +40,9 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ParaRepository paraRepo;
+
     @PostMapping("/add")
     public String add(@RequestBody User user){
         userService.saveUser(user);
@@ -47,17 +51,18 @@ public class MainController {
 
     @GetMapping("/getParas")
     public List<Para> listPara(){
-        List<Para> list = paraService.getAllParas();
+        List<Para> list = paraRepo.findBystNum(2);
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i).getText());
         }
-        return paraService.getAllParas();
+        return paraService.getParasByStID(1);
     }
 
     @GetMapping("/getPhotos")
     public List<Photo> listPhoto(){
         return photoService.getAllPhotos();
     }
+
 
     @GetMapping("/getStations/{locale}")
     public List<Localed_Station> listStation(@PathVariable(value = "locale") String local){

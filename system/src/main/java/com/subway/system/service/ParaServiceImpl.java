@@ -24,5 +24,10 @@ public class ParaServiceImpl implements ParaService {
     public List<Para> getAllParas() {
         return paraRepository.findAll();
     }
+
+    @Override
+    public List<Para> getParasByStID(int id) {
+        return paraRepository.findBystNum(id);
+    }
 }
 
