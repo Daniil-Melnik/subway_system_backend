@@ -72,7 +72,7 @@ public class MainController {
 
         for (int i = 0; i < stations.size(); i++) {
             Station st = stations.get(i);
-            Localed_Station l_st = new Localed_Station(st.getId(), st.getName(), st.getNum_of_sec(), st.getLine_id());
+            Localed_Station l_st = new Localed_Station(st.getId(), st.getName(), st.getNum_of_sec(), st.getLine_id(), st.getImg1(), st.getImg2(), st.getImg3(), st.getYear());
             if (local.equals("en")){
                 l_st.setName(st.getNameEn());
             }

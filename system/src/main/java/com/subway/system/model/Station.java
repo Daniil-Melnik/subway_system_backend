@@ -15,6 +15,9 @@ public class Station {
 
     private String name;
     private String name_en;
+    private String img1;
+    private String img2;
+    private String img3;
     private int line_id;
     private int num_of_sec;
     private int year;
@@ -43,6 +46,18 @@ public class Station {
         return name_en;
     }
 
+    public String getImg1() {
+        return img1;
+    }
+
+    public String getImg2() {
+        return img2;
+    }
+
+    public String getImg3() {
+        return img3;
+    }
+
     public void setId (int n) {
         this.id = n;
     }
@@ -67,10 +82,26 @@ public class Station {
         this.name_en = s;
     }
 
-    public void setStation (int id, String name, int num_of_sec, int line_id) {
+    public void setImg1 (String s) {
+        this.img1 = s;
+    }
+
+    public void setImg2 (String s) {
+        this.img2 = s;
+    }
+
+    public void setImg3 (String s) {
+        this.img3 = s;
+    }
+
+    public void setStation (int id, String name, int num_of_sec, int line_id, String img1, String img2, String img3, int year) {
         setId(id);
         setName(name);
         setLine_id(line_id);
         setNum_of_sec(num_of_sec);
+        setImg1(img1);
+        setImg2(img2);
+        setImg3(img3);
+        setYear(year);
     }
 }
