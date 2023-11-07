@@ -17,9 +17,14 @@ public class Station {
     private String name_en;
     private int line_id;
     private int num_of_sec;
+    private int year;
 
     public int getId() {
         return id;
+    }
+
+    public int getYear() {
+        return year;
     }
 
     public int getLine_id() {
@@ -40,6 +45,10 @@ public class Station {
 
     public void setId (int n) {
         this.id = n;
+    }
+
+    public void setYear (int n) {
+        this.year = n;
     }
 
     public void setLine_id (int n) {
